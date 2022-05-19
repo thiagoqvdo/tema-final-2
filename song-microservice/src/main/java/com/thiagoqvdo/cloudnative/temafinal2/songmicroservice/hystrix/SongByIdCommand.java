@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-@Component("songByID")
+@Component("songById")
 public class SongByIdCommand extends HystrixCommand<Mono<Song>> {
     @Autowired
     private SongRepository songRepository;
@@ -27,13 +27,12 @@ public class SongByIdCommand extends HystrixCommand<Mono<Song>> {
     }
 
     @Override
-    protected Mono<Song> run() throws Exception {
+    protected Mono<Song> run() {
         return songRepository.findById(songID);
     }
 
     @Override
     protected Mono<Song> getFallback() {
-        System.err.println(super.getFallback());
         return super.getFallback();
     }
 

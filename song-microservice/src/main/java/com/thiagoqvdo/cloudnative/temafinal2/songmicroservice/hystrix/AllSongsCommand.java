@@ -24,13 +24,12 @@ public class AllSongsCommand extends HystrixCommand<Flux<Song>> {
     }
 
     @Override
-    protected Flux<Song> run() throws Exception {
+    protected Flux<Song> run() {
         return songRepository.findAll();
     }
 
     @Override
     protected Flux<Song> getFallback() {
-        System.err.println(super.getFallback());
         return super.getFallback();
     }
 

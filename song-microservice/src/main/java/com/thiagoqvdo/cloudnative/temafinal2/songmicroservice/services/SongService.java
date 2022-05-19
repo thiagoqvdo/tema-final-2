@@ -1,7 +1,6 @@
 package com.thiagoqvdo.cloudnative.temafinal2.songmicroservice.services;
 
 import com.thiagoqvdo.cloudnative.temafinal2.songmicroservice.entities.Song;
-import com.thiagoqvdo.cloudnative.temafinal2.songmicroservice.enums.HystrixCommandType;
 import com.thiagoqvdo.cloudnative.temafinal2.songmicroservice.hystrix.SongHystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,14 @@ public class SongService {
     private SongHystrixCommand commands;
 
     public Flux<Song> getAllSongs() {
-        return commands.execute(HystrixCommandType.GET_ALL);
+        return commands.execute();
     }
 
     public Mono<Song> getSongById(UUID id) {
-        return (Mono<Song>) commands.execute(HystrixCommandType.GET_BY_ID, id);
+        return commands.execute(id);
+    }
+
+    public Flux<Song> getSongList(Flux<UUID> idList) {
+        return idList.flatMap(id -> commands.execute(id));
     }
 }

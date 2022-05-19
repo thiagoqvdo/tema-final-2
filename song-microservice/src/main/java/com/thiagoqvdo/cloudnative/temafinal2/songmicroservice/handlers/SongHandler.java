@@ -15,7 +15,9 @@ import reactor.core.publisher.Mono;
 import rx.Observable;
 import rx.RxReactiveStreams;
 
-import static org.springframework.web.reactive.function.server.ServerResponse.ok;
+import java.util.UUID;
+
+import static org.springframework.web.reactive.function.server.ServerResponse.*;
 
 @Component
 public class SongHandler {
@@ -28,6 +30,14 @@ public class SongHandler {
         return ok().body(service.getAllSongs(), Song.class);
     }
 
+    public Mono<ServerResponse> getSong(ServerRequest request) {
+        return ok().body(service.getSongById(UUID.fromString(request.queryParam("id").get())), Song.class);
+    }
+
+    public Mono<ServerResponse> getSongsByListId(ServerRequest request) {
+        return ok().body(service.getSongList(request.bodyToFlux(UUID.class)), Song.class);
+    }
+
     public Mono<ServerResponse> getHystrixMetrics(ServerRequest request) {
         Observable<String> serializedDashboardData = HystrixDashboardStream.getInstance().observe()
                 .concatMap(dashboardData -> Observable.from(SerialHystrixDashboardData.toMultipleJsonStrings(dashboardData)));
@@ -35,10 +45,4 @@ public class SongHandler {
 
         return ok().contentType(MediaType.TEXT_EVENT_STREAM).body(publisher, String.class);
     }
-
-//    public Mono<ServerResponse> getSong(ServerRequest request) {
-//        if (request.queryParam("id").isPresent()) {
-//            return ok().body(service.getSongById(UUID.fromString(request.queryParam("id").get())), Song.class);
-//        } else return badRequest().build();
-//    }
 }
