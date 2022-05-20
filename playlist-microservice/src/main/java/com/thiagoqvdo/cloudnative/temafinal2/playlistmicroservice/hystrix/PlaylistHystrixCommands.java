@@ -38,7 +38,7 @@ public class PlaylistHystrixCommands {
 
         @Override
         protected Flux<Playlist> getFallback() {
-            return super.getFallback();
+            return Flux.just(new Playlist());
         }
 
     }
@@ -59,7 +59,7 @@ public class PlaylistHystrixCommands {
 
         @Override
         protected Mono<Playlist> getFallback() {
-            return super.getFallback();
+            return Mono.just(new Playlist());
         }
     }
 }
