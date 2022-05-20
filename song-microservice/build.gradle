@@ -1,0 +1,38 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.thiagoqvdo.cloudnative.temafinal2'
+version = '1.0'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation([
+			'org.springframework.boot:spring-boot-starter-data-cassandra-reactive',
+			'org.springframework.boot:spring-boot-starter-webflux',
+			'io.reactivex:rxjava-reactive-streams:1.2.1',
+
+			'com.netflix.hystrix:hystrix-core:1.5.18',
+			'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.18',
+			'com.netflix.hystrix:hystrix-serialization:1.5.18',
+
+			'com.netflix.eureka:eureka-client:1.10.17',
+
+			'javax.servlet:javax.servlet-api:4.0.1'
+	])
+
+	testImplementation([
+			'org.springframework.boot:spring-boot-starter-test',
+			'io.projectreactor:reactor-test'
+	])
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
