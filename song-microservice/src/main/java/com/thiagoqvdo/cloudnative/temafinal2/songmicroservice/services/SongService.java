@@ -16,14 +16,14 @@ public class SongService {
     private SongHystrixCommand commands;
 
     public Flux<Song> getAllSongs() {
-        return commands.execute();
+        return commands.getAll();
     }
 
     public Mono<Song> getSongById(UUID id) {
-        return commands.execute(id);
+        return commands.getSongById(id);
     }
 
     public Flux<Song> getSongList(Flux<UUID> idList) {
-        return idList.flatMap(id -> commands.execute(id));
+        return idList.flatMap(id -> commands.getSongById(id));
     }
 }

@@ -21,10 +21,10 @@ public class SongRouter {
     public RouterFunction<ServerResponse> route(SongHandler handler) {
         return RouterFunctions
                 .route(GET("/song/all"), handler::getAllSongs)
+                .andRoute(GET("/hystrix.stream"), handler::getHystrixMetrics)
                 .andRoute(GET("/song/id")
                         .and(request -> request.queryParam("id").isPresent()), handler::getSong)
                 .andRoute(POST("/song/list")
-                        .and(accept(MediaType.APPLICATION_JSON)), handler::getSongsByListId)
-                .andRoute(GET("/hystrix.stream"), handler::getHystrixMetrics);
+                        .and(accept(MediaType.APPLICATION_JSON)), handler::getSongsByListId);
     }
 }
