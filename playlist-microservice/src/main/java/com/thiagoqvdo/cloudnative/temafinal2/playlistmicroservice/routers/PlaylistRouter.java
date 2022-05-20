@@ -14,9 +14,11 @@ public class PlaylistRouter {
 
     @Bean
     public RouterFunction<ServerResponse> route(PlaylistHandler handler) {
-        return RouterFunctions.route(GET( "/playlist/all"), handler::getAllSongs)
-                .andRoute(GET("/playlist/by_id")
-                        .and(request -> request.queryParam("id").isPresent()), handler::getSongById)
-                .andRoute(GET("/hystrix.stream"), handler::getHystrixMetrics);
+        return RouterFunctions
+                .route(GET( "/playlist/all"), handler::getAllSongs)
+                .andRoute(GET("/hystrix.stream"), handler::getHystrixMetrics)
+                .andRoute(GET("/playlist/id")
+                        .and(request -> request.queryParam("id").isPresent()), handler::getSongById);
+
     }
 }
