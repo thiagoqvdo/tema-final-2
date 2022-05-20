@@ -13,16 +13,24 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-cassandra-reactive'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	implementation 'com.netflix.hystrix:hystrix-core:1.5.18'
-	implementation 'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.18'
-	implementation 'com.netflix.hystrix:hystrix-serialization:1.5.18'
-	implementation 'io.reactivex:rxjava-reactive-streams:1.2.1'
-	implementation 'com.netflix.eureka:eureka-client:1.10.17'
-	implementation 'javax.servlet:javax.servlet-api:4.0.1'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
+	implementation([
+			'org.springframework.boot:spring-boot-starter-data-cassandra-reactive',
+			'org.springframework.boot:spring-boot-starter-webflux',
+			'io.reactivex:rxjava-reactive-streams:1.2.1',
+
+			'com.netflix.hystrix:hystrix-core:1.5.18',
+			'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.18',
+			'com.netflix.hystrix:hystrix-serialization:1.5.18',
+
+			'com.netflix.eureka:eureka-client:1.10.17',
+
+			'javax.servlet:javax.servlet-api:4.0.1'
+	])
+
+	testImplementation([
+			'org.springframework.boot:spring-boot-starter-test',
+			'io.projectreactor:reactor-test'
+	])
 }
 
 tasks.named('test') {
