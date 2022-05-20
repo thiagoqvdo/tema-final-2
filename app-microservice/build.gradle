@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.7'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.thiagoqvdo.cloudnative.temafinal2'
+version = '1.0'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation([
+			'com.netflix.eureka:eureka-client:1.10.17',
+			'com.netflix.governator:governator:1.17.12',
+
+			'com.netflix.hystrix:hystrix-core:1.5.18',
+			'com.netflix.hystrix:hystrix-metrics-event-stream:1.5.18',
+			'com.netflix.hystrix:hystrix-serialization:1.5.18',
+
+			'com.playtika.reactivefeign:feign-reactor-core:3.2.1',
+			'com.playtika.reactivefeign:feign-reactor-spring-configuration:3.2.1',
+			'com.playtika.reactivefeign:feign-reactor-webclient:3.2.1',
+
+			'org.springframework.boot:spring-boot-starter-webflux',
+			'io.reactivex:rxjava-reactive-streams:1.2.1',
+
+			'com.netflix.ribbon:ribbon-core:2.7.18',
+			'com.netflix.ribbon:ribbon:2.7.18',
+			'com.netflix.ribbon:ribbon-loadbalancer:2.7.18'
+	])
+
+	testImplementation([
+			'org.springframework.boot:spring-boot-starter-test',
+			'io.projectreactor:reactor-test'
+	])
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
