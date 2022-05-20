@@ -15,7 +15,7 @@ public class AppService {
     private AppHystrixCommands hystrixCommands;
 
     public Flux<Song> getSongsByIdList(UUID playlistId) {
-        return hystrixCommands.execute(hystrixCommands.execute(playlistId)
+        return hystrixCommands.getSongListById(hystrixCommands.getPlaylistById(playlistId)
                 .map(playlist -> playlist.getSongsId()));
     }
 }

@@ -49,7 +49,7 @@ public class AppRibbonClient {
                     @Override
                     public Observable<Playlist> call(Server server) {
                         return RxReactiveStreams.toObservable(WebReactiveFeign.<AppFeignClient>builder()
-                                .target(AppFeignClient.class, server.getHost()+":"+server.getPort())
+                                .target(AppFeignClient.class, server.getHost() + ":" + server.getPort())
                                 .playlistById(playlistId));
                     }
                 })));
@@ -62,12 +62,10 @@ public class AppRibbonClient {
                 .submit(new ServerOperation<Song>() {
                     @Override
                     public Observable<Song> call(Server server) {
-                        Observable<Song> observable = RxReactiveStreams.toObservable(
-                            WebReactiveFeign.<AppFeignClient>builder()
-                                    .target(AppFeignClient.class, server.getHost()+":"+server.getPort())
-                                    .songByIdList(songIdList)
+                        return RxReactiveStreams.toObservable(WebReactiveFeign.<AppFeignClient>builder()
+                                .target(AppFeignClient.class, server.getHost() + ":" + server.getPort())
+                                .songByIdList(songIdList)
                         );
-                        return observable;
                     }
                 })));
     }
